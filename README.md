@@ -18,7 +18,7 @@ In order to automatically skip asking for user input if the computer record alre
 - Hostname (string)
 - Computer Role (string)
 
-We write the computer's hostname to our own `Hostname` Extension Attribute during provisioning so it will persist during re-provisioning (because the actual Computer Name changes in the Jamf Computer Record otherwise).
+We write the computer's hostname to our own `Hostname` Extension Attribute during provisioning so it will persist during re-provisioning (because the actual Computer Name in the Jamf Computer Record changes to the default "iMac" etc value when the freshly wiped Mac re-enrolls).
 
 In my environment, the hostname determines which lab a Mac belongs in. So for a hostname of `DLEB285-12345`:
 
