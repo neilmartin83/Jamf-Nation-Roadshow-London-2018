@@ -1,5 +1,5 @@
 # Jamf Nation-Roadshow London 2018
-## Dawn of the DEP
+## Lab Nauseum - Dawn Of The DEP
 
 Resources from my presentation at the Jamf Nation Roadshow - leveraging DEPNotify in lab environments.
 
