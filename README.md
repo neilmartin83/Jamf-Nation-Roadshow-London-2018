@@ -13,12 +13,18 @@ Join the MacAdmins Slack: https://macadmins.herokuapp.com/ - check out the __#de
 
 This script is intended to be ran via a Policy that's triggered on "Enrolment Complete". The policy should also install DEPNotify along with your branding image - in this script, the image is assumed to be in `/Library/Application Support/UEL/ux/UEL.png` (rename/replace as per your organisation).
 
-In order to automatically skip asking for user input if the computer record already exists with a name and role, the script reads from and populates these Extension Attributes in the JSS (modify as appropriate for your org, or don't use them if you don't want this little bit of automation):
+The script makes use of Jamf's parameter functionality: https://www.jamf.com/jamf-nation/articles/146/script-parameters
+
+- `$4` = Jamf Pro Server URL (excluding the port number - 8443 is assumed, edit the script if you use something else)
+- `$5` = Username for the Jamf Pro Server account doing the API reads/writes (must have permission to read and update Computer objects
+- `$6` = Password for the Jamf Pro Server account doing the API reads/writes
+
+In order to automatically skip asking for user input if the computer record already exists with a name and role, the script reads from and populates these Extension Attributes to the Computer Record via the Jamf API (modify as appropriate for your org, or don't use them if you don't want this little bit of automation):
 
 - Hostname (string)
 - Computer Role (string)
 
-We write the computer's hostname to our own `Hostname` Extension Attribute during provisioning so it will persist when a Mac is erases with a clean install of macOS (because the actual Computer Name in the Jamf Computer Record changes to the default "iMac" etc value when the freshly re-provisioned Mac re-enrolls).
+We write the computer's hostname to our own `Hostname` Extension Attribute via the Jamf API during provisioning so it will persist when a Mac is erases with a clean install of macOS (because the actual Computer Name in the Jamf Computer Record changes to the default "iMac" etc value when the freshly re-provisioned Mac re-enrolls).
 
 In my environment, the hostname determines which lab a Mac belongs in. So for a hostname of `DLEB285-12345`:
 
