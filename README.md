@@ -15,22 +15,28 @@ This script is intended to be ran via a Policy that's triggered on "Enrolment Co
 
 In order to automatically skip asking for user input if the computer record already exists with a name and role, the script reads from and populates these Extension Attributes in the JSS (modify as appropriate for your org, or don't use them if you don't want this little bit of automation):
 
-- Computer Name (string)
+- Hostname (string)
 - Computer Role (string)
 
-In my environment, Lab Smart Groups are populated based on the computer hostname and role, so for a hostname of DLEB285-12345:
+We write the computer's hostname to our own `Hostname` Extension Attribute during provisioning so it will persist during re-provisioning (because the actual Computer Name changes in the Jamf Computer Record otherwise).
 
-And/Or | Criteria | Operator | Value
---- | --- | --- | ---
---- | Computer Name | like | DLEB285
-and | Computer Role | is | Student
+In my environment, the hostname determines which lab a Mac belongs in. So for a hostname of `DLEB285-12345`:
 
-The first part of the hostname `DLEB285` can be broken down/decoded as follows:
+The first part of the hostname denotes the computer lab, `DLEB285` and can be broken down/decoded as follows:
 
 - `DL`: Campus code (Docklands)
 - `EB`: Building code (East Building)
 - `2`: Floor code (2nd Floor)
 - `85`: Room code (Room Number 85)
+
+The second part of the hostname `12345` is an asset number, used for inventory purposes.
+
+Lab Smart Groups are populated based on the computer hostname and role, so for Macs in lab `DLEB285` we would use:
+
+And/Or | Criteria | Operator | Value
+--- | --- | --- | ---
+--- | Computer Name | like | DLEB285
+and | Computer Role | is | Student
 
 This is specific to my environment but does give some insight into how we can easily create differnt Smart Groups for Macs by campus, building, floor and room.
 
