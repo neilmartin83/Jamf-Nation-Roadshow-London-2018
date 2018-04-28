@@ -51,8 +51,8 @@ For each software title, separate Smart Groups are populated based on whether sa
 And/Or | Criteria | Operator | Value
 --- | --- | --- | ---
 --- | Application Title | is not | Firefox.app
-and ( | Computer Group | is | Lab DLEB85
-or | Computer Group | is | Lab DLWB123 )
+and ( | Computer Group | member of | Lab DLEB85
+or | Computer Group | member of | Lab DLWB123 )
 
 In this example, we would get Macs without Firefox that are in labs DLEB285 or DLWB123. Once a Mac in either of those labs has Firefox, it will leave this Smart Group.
 
