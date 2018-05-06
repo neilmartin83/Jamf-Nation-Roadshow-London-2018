@@ -11,7 +11,7 @@ Join the MacAdmins Slack: https://macadmins.herokuapp.com/ - check out the __#de
 
 ### DEP - Provision - Example.sh ###
 
-This script is intended to be ran via a Policy that's triggered on "Enrolment Complete". The policy should also install DEPNotify along with your branding image - in this script, the image is assumed to be in `/Library/Application Support/UEL/ux/UEL.png` (rename/replace as per your organisation).
+This script is intended to be ran via a Policy that's triggered on "Enrolment Complete". The policy should also install DEPNotify along with your branding image - in this script, the image is assumed to be in `/Library/Application Support/UEL/ux/UEL.png` (rename/replace or don't use so you get the default, as per your organisation).
 
 The script makes use of Jamf's parameter functionality: https://www.jamf.com/jamf-nation/articles/146/script-parameters
 
