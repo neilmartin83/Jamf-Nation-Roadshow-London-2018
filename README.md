@@ -5,9 +5,9 @@ Resources from my presentation at the Jamf Nation Roadshow - leveraging DEPNotif
 
 Grab DEPNotify here: https://gitlab.com/Mactroll/DEPNotify
 
-I am using @fgd's User Input Fork: (link to be provided)
+I am using Frederico Deis' (@fgd on the MacAdmins Slack) fork, which has been merged into the 104RC2 branch: https://gitlab.com/Mactroll/DEPNotify/tree/104RC2 
 
-Join the MacAdmins Slack: https://macadmins.herokuapp.com/ - check out the __#depnotify__ channel.
+Join the MacAdmins Slack: https://macadmins.herokuapp.com/ - check out the __#depnotify__ channel where @fgd has posted builds of his fork with the user input/registration functionality I demonstrated in my presentation.
 
 ### DEP - Provision - Example.sh ###
 
