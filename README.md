@@ -3,6 +3,18 @@
 
 Resources from my presentation at the Jamf Nation Roadshow - leveraging DEPNotify in lab environments. This is an adaptation and simplification of the methods used in my university's environment to provision Macs in computer labs using installation and DEP based workflows. Imaging is dead!
 
+### Background stuff ###
+
+If you aren‘t getting Apple push notifications - https://support.apple.com/en-gb/HT203609
+
+2017: A Push Odyssey — Journey to the Center of APNS - https://www.youtube.com/watch?v=nXjEevMtwa4
+
+Use Device Enrollment - https://support.apple.com/en-gb/HT204142
+
+Apple Device Enrollment Program Guide - https://www.apple.com/education/docs/DEP_Guide.pdf
+
+### DEPNotify ###
+
 Grab DEPNotify here: https://gitlab.com/Mactroll/DEPNotify
 
 I am using Frederico Deis' (@fgd on the MacAdmins Slack) fork, which has been merged into the 104RC2 branch: https://gitlab.com/Mactroll/DEPNotify/tree/104RC2 
