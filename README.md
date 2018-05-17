@@ -17,7 +17,7 @@ Apple Device Enrollment Program Guide - https://www.apple.com/education/docs/DEP
 
 Grab DEPNotify here: https://gitlab.com/Mactroll/DEPNotify (note that version 1.0.3 hosted on GitLab does NOT have user input functionality)
 
-Frederico Deis' (@fgd on the MacAdmins Slack) has done some amazing work and added user input functionality which has been merged into the 104RC2 branch: https://gitlab.com/Mactroll/DEPNotify/tree/104RC2 
+Frederico Deis (@fgd on the MacAdmins Slack) has done some amazing work and added user input functionality which has been merged into the 104RC2 branch: https://gitlab.com/Mactroll/DEPNotify/tree/104RC2 
 
 You can get a compiled version of this one here: https://macadmins.slack.com/files/U08LW9L4X/FAJNK2TS7/depnotify-1.0.4_25_rc2.zip - just package it up with Composer or your packaging tool of choice and you're off to the races!
 
