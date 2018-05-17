@@ -1,7 +1,7 @@
 # Jamf Nation-Roadshow London 2018
 ## Lab Nauseum - Dawn Of The DEP
 
-Resources from my presentation at the Jamf Nation Roadshow - leveraging DEPNotify in lab environments. This is an adaptation and simplification of the methods used in my university's environment to provision Macs in computer labs using installation and DEP based workflows. Imaging is dead!
+Resources from my presentation at the Jamf Nation Roadshow (17th May 2018, The Mermaid, London) - leveraging DEPNotify in lab environments. This is an adaptation and simplification of the methods used in my university's environment to provision Macs in computer labs using installation and DEP based workflows. Imaging is dead!
 
 ### Background stuff ###
 
