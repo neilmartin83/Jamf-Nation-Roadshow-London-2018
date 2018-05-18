@@ -13,6 +13,8 @@ Use Device Enrollment - https://support.apple.com/en-gb/HT204142
 
 Apple Device Enrollment Program Guide - https://www.apple.com/education/docs/DEP_Guide.pdf
 
+macOS Installation: Strange New World - AWESOME blog post by Armin Briegel released on the same day I did my talk. This will get you where you need to be when it comes to getting macOS on your fleet via an installation based workflow - https://scriptingosx.com/2018/05/macos-installation-strange-new-world/
+
 ### DEPNotify ###
 
 Grab DEPNotify here: https://gitlab.com/Mactroll/DEPNotify (note that version 1.0.3 hosted on GitLab does NOT have user input functionality)
