@@ -57,6 +57,8 @@ The second part of the hostname `12345` is an asset number, used for inventory p
 
 Lab Smart Groups are populated based on the computer hostname and role, so for Macs in lab `DLEB285` we would use:
 
+#### Smart Group: Lab DLEB285 ####
+
 And/Or | Criteria | Operator | Value
 --- | --- | --- | ---
 --- | Computer Name | like | DLEB285
@@ -64,17 +66,19 @@ and | Computer Role | is | Student
 
 This is specific to my environment but does give some insight into how we can easily create differnt Smart Groups for Macs by campus, building, floor and room.
 
-For each software title, separate Smart Groups are populated based on whether said application (you could also look for package receipt) is present and whether the Macs are in the specific Lab Smart Groups where the software is needed:
+For each software title, separate Smart Groups are populated based on whether said application (or sometimes package receipt) is present and whether the Macs are in the specific Lab Smart Groups where the software is needed:
+
+#### Smart Group: Deploy Mozilla Firefox ####
 
 And/Or | Criteria | Operator | Value
 --- | --- | --- | ---
 --- | Application Title | is not | Firefox.app
-and ( | Computer Group | member of | Lab DLEB85
+and ( | Computer Group | member of | Lab DLEB285
 or | Computer Group | member of | Lab DLWB123 )
 
 In this example, we would get Macs without Firefox that are in labs DLEB285 or DLWB123. Once a Mac in either of those labs has Firefox, it will leave this Smart Group.
 
-For each software title, a separate Policy is created to install it. These Policies are scoped to their corresponding Smart Group (above).
+For each software title, a separate Policy is created to install it. Each Policy is scoped to its corresponding Smart Group (above).
 
 The Policies all have the same custom trigger: `Deploy`. This means that you can deploy all the software a specific lab needs with a single command in the provisioning script: `jamf policy -event Deploy`.
 
