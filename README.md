@@ -78,7 +78,7 @@ or | Computer Group | member of | Lab DLWB123 )
 
 In this example, we would get Macs without Firefox that are in labs DLEB285 or DLWB123. Once a Mac in either of those labs has Firefox, it will leave this Smart Group.
 
-For each software title, a separate Policy is created to install it. Each Policy is scoped to its corresponding Smart Group (above).
+For each software title, a separate Policy is created to install it. Each Policy is scoped to its corresponding Smart Group (above). These Policies must have an `Update Inventory` step included to ensure that Macs leave the scoped Smart Group as soon as they have the application installed.
 
 The Policies all have the same custom trigger: `Deploy`. This means that you can deploy all the software a specific lab needs with a single command in the provisioning script: `jamf policy -event Deploy`.
 
