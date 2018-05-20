@@ -17,13 +17,13 @@ macOS Installation: Strange New World - AWESOME blog post by Armin Briegel relea
 
 ### DEPNotify ###
 
-Grab DEPNotify here: https://gitlab.com/Mactroll/DEPNotify (note that version 1.0.3 hosted on GitLab does NOT have user input functionality)
+Grab DEPNotify here: https://gitlab.com/Mactroll/DEPNotify.
 
-Frederico Deis (@fgd on the MacAdmins Slack) has done some amazing work and added user input functionality which has been merged into the 104RC2 branch: https://gitlab.com/Mactroll/DEPNotify/tree/104RC2 
+Frederico Deis has done some amazing work and added user input functionality which has been merged into the latest 1.1.0 update by Clayton Burlison and Joel Rennich. Huge hat tip to all of you!
 
-You can get a compiled version of this one here: https://macadmins.slack.com/files/U08LW9L4X/FAJNK2TS7/depnotify-1.0.4_25_rc2.zip - just package it up with Composer or your packaging tool of choice and you're off to the races!
+Grab the 1.1.0 binary here: https://gitlab.com/Mactroll/DEPNotify/tags/1.1.0. Package it up with Composer or your packaging tool of choice, then you're off to the races!
 
-Join the MacAdmins Slack: https://macadmins.herokuapp.com/ - check out the __#depnotify__ channel and get involved with more testing, ask questions, discuss things with other folks who use it and so on.
+Join the MacAdmins Slack: https://macadmins.herokuapp.com/ - check out the __#depnotify__ channel, hang out with the developers and users, get involved with testing, ask questions, discuss and enjoy.
 
 ### DEP - Provision - Example.sh ###
 
