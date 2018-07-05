@@ -34,7 +34,7 @@ The policy should also install DEPNotify along with your branding image - in thi
 The script makes use of Jamf's parameter functionality: https://www.jamf.com/jamf-nation/articles/146/script-parameters
 
 - `$4` = Jamf Pro Server URL (excluding the port number - 8443 is assumed, edit the script if you use something else)
-- `$5` = Username for the Jamf Pro Server account doing the API reads/writes (must have permission to read and update Computer objects)
+- `$5` = Username for the Jamf Pro Server account doing the API reads/writes (must have privileges to read and update Computers objects, as well as permission to update Users objects)
 - `$6` = Password for the Jamf Pro Server account doing the API reads/writes
 
 In order to automatically skip asking for user input if the computer record already exists with a name and role, the script reads from and populates these Extension Attributes to the Computer Record via the Jamf API (modify as appropriate for your org, or don't use them if you don't want this little bit of automation):
