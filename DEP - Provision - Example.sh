@@ -26,8 +26,9 @@ loggedInUser=$(python -c 'from SystemConfiguration import SCDynamicStoreCopyCons
 
 # Check for existing Hostname extension attribute in JSS - if it's not there, we'll ask for the name and role, otherwise, automation baby!
 
-jssHostName=$(curl "$4":8443/JSSResource/computers/serialnumber/"$serial"/subset/extension_attributes --user "$5":"$6" | xpath '//extension_attribute[name="Hostname"' | awk -F'<value>|</value>' '{print $2}')
-jssUserRole=$(curl "$4":8443/JSSResource/computers/serialnumber/"$serial"/subset/extension_attributes --user "$5":"$6" | xpath '//extension_attribute[name="Mac User Role"' | awk -F'<value>|</value>' '{print $2}')
+eaxml=$(curl "$4":8443/JSSResource/computers/serialnumber/"$serial"/subset/extension_attributes -u "$5":"$6" -H "Accept: text/xml")
+jssHostName=$(echo "$eaxml" | xpath '//extension_attribute[name="Hostname"' | awk -F'<value>|</value>' '{print $2}')
+jssUserRole=$(echo "$eaxml" | xpath '//extension_attribute[name="Mac User Role"' | awk -F'<value>|</value>' '{print $2}')
 
 if [[ "$jssHostName" == "" ]] || [[ "$jssUserRole" == "" ]]; then
 	sudo -u "$loggedInUser" defaults write menu.nomad.DEPNotify PathToPlistFile /var/tmp/
@@ -68,7 +69,7 @@ if [[ "$jssHostName" == "" ]] || [[ "$jssUserRole" == "" ]]; then
 </computer>
 EOF
 	## Upload the xml file
-	/usr/bin/curl -sfku "$5":"$6" "$4":8443/JSSResource/computers/serialnumber/"$serial" -T /var/tmp/name.xml -X PUT
+	/usr/bin/curl -sfku "$5":"$6" "$4":8443/JSSResource/computers/serialnumber/"$serial" -H "Content-type: text/xml" -T /var/tmp/name.xml -X PUT
 	# Create xml
 	cat << EOF > /var/tmp/role.xml
 <computer>
@@ -81,7 +82,7 @@ EOF
 </computer>
 EOF
 	## Upload the xml file
-	/usr/bin/curl -sfku "$5":"$6" "$4":8443/JSSResource/computers/serialnumber/"$serial" -T /var/tmp/role.xml -X PUT
+	/usr/bin/curl -sfku "$5":"$6" "$4":8443/JSSResource/computers/serialnumber/"$serial" -H "Content-type: text/xml" -T /var/tmp/role.xml -X PUT
 
 else
 	# Set variables for Computer Name and Role to those from the JSS
