@@ -1,12 +1,15 @@
 #!/bin/bash
 
-# $4 = JSS URL
+# $4 = JSS URL including port number, if applicable
 # $5 = JSS account username for API access
 # $6 = JSS account password for API access
 
 # Set basic variables
 osversion=$(sw_vers -productVersion)
 serial=$(ioreg -rd1 -c IOPlatformExpertDevice | awk -F'"' '/IOPlatformSerialNumber/{print $4}')
+jamfUrl="$4"
+apiUserName="$5"
+apiPassword="$6"
 
 # Let's not go to sleep 
 caffeinate -d -i -m -s -u &
@@ -24,11 +27,18 @@ done
 # Get the currently logged in user's username
 loggedInUser=$(python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n");')
 
+# Get API Bearer Token
+response=$(curl -s -u "$apiUserName":"$apiPassword" "$jamfUrl"/api/v1/auth/token -X POST)
+bearerToken=$(echo "$response" | plutil -extract token raw -)
+
 # Check for existing Hostname extension attribute in JSS - if it's not there, we'll ask for the name and role, otherwise, automation baby!
 
-eaxml=$(curl "$4":8443/JSSResource/computers/serialnumber/"$serial"/subset/extension_attributes -u "$5":"$6" -H "Accept: text/xml")
+eaxml=$(curl -s "$jamfUrl"/JSSResource/computers/serialnumber/"$serial"/subset/extension_attributes -H "Authorization: Bearer ${bearerToken}" -H "Accept: text/xml")
 jssHostName=$(echo "$eaxml" | xpath '//extension_attribute[name="Hostname"' | awk -F'<value>|</value>' '{print $2}')
 jssUserRole=$(echo "$eaxml" | xpath '//extension_attribute[name="Mac User Role"' | awk -F'<value>|</value>' '{print $2}')
+
+# Destroy API Bearer Token as it may be some time before we need another
+curl "$jamfUrl"/api/v1/auth/invalidate-token -H "Authorization: Bearer ${bearerToken}" -X POST -s -o /dev/null
 
 if [[ "$jssHostName" == "" ]] || [[ "$jssUserRole" == "" ]]; then
 	sudo -u "$loggedInUser" defaults write menu.nomad.DEPNotify PathToPlistFile /var/tmp/
@@ -57,6 +67,11 @@ if [[ "$jssHostName" == "" ]] || [[ "$jssUserRole" == "" ]]; then
 	computerRole=$(/usr/libexec/plistbuddy /var/tmp/DEPNotify.plist -c "print 'Computer Role'")
 
 	# Update Hostname and Computer Role in JSS
+
+	# Get API Bearer Token
+	response=$(curl -s -u "$apiUserName":"$apiPassword" "$jamfUrl"/api/v1/auth/token -X POST)
+	bearerToken=$(echo "$response" | plutil -extract token raw -)
+ 
 	# Create xml
 	cat << EOF > /var/tmp/name.xml
 <computer>
@@ -69,8 +84,9 @@ if [[ "$jssHostName" == "" ]] || [[ "$jssUserRole" == "" ]]; then
 </computer>
 EOF
 	## Upload the xml file
-	/usr/bin/curl -sfku "$5":"$6" "$4":8443/JSSResource/computers/serialnumber/"$serial" -H "Content-type: text/xml" -T /var/tmp/name.xml -X PUT
-	# Create xml
+	/usr/bin/curl -s "$jamfUrl"/JSSResource/computers/serialnumber/"$serial" -H "Authorization: Bearer ${bearerToken}" -H "Content-type: text/xml" -T /var/tmp/name.xml -X PUT
+	
+ 	# Create xml
 	cat << EOF > /var/tmp/role.xml
 <computer>
     <extension_attributes>
@@ -82,7 +98,10 @@ EOF
 </computer>
 EOF
 	## Upload the xml file
-	/usr/bin/curl -sfku "$5":"$6" "$4":8443/JSSResource/computers/serialnumber/"$serial" -H "Content-type: text/xml" -T /var/tmp/role.xml -X PUT
+	/usr/bin/curl -s "$jamfUrl"/JSSResource/computers/serialnumber/"$serial" -H "Authorization: Bearer ${bearerToken}" -H "Content-type: text/xml" -T /var/tmp/role.xml -X PUT
+
+	# Destroy API Bearer Token
+	curl "$jamfUrl"/api/v1/auth/invalidate-token -H "Authorization: Bearer ${bearerToken}" -X POST -s -o /dev/null
 
 else
 	# Set variables for Computer Name and Role to those from the JSS
@@ -134,5 +153,3 @@ echo "Status: Restarting, please wait..." >> /var/tmp/depnotify.log
 jamf recon
 kill "$caffeinatepid"
 /sbin/shutdown -r +2 &
-
-exit 0
