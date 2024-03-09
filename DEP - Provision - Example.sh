@@ -25,7 +25,7 @@ while [[ "$dockStatus" == "" ]]; do
 done
 
 # Get the currently logged in user's username
-loggedInUser=$(python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n");')
+loggedInUser=$(/bin/echo "show State:/Users/ConsoleUser" | /usr/sbin/scutil | /usr/bin/awk '/Name :/ { print $3 }')
 
 # Get API Bearer Token
 response=$(curl -s -u "$apiUserName":"$apiPassword" "$jamfUrl"/api/v1/auth/token -X POST)
